@@ -2,7 +2,14 @@ Rest Api
 ========
 
 JSON-REST API for Database and File access
-With this API you can access and manage Tables databases and File Systèm
+With this API you can access and manage Tables databases and File System
+
+
+Simple configuration
+--------------------
+
+Edit 'config.php' file for change debuging, mysql and auth configuration.
+
 
 Working with HTTP VERB
 ----------------------
@@ -19,3 +26,27 @@ PUT : Update data in table
       Update file (change content)
 
 DELETE : Delete table or file/directory entry
+
+
+Minimal User table for authentication
+-------------------------------------
+
+CREATE TABLE IF NOT EXISTS `user` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `email` varchar(255) DEFAULT NULL,
+  `password` varchar(255) DEFAULT NULL,
+  `token` varchar(255) DEFAULT NULL,
+  `expire` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
+
+
+Using api via an app
+--------------------
+
+1) First authenticate by posting username and password data (configured in config.php file) to url http://server.com/authenticate
+   If success, return needed token for all query in result {'success':true, 'result': { 'token': 'azerty'}}
+2) Next, use this token for query api, by adding it to query header
+   Ex: GET http://www.domain.com/matable
+       X-APP-TOKEN: azerty
+   Result: {"success":true,"result":[{"id":"1","code":"XXXXXX"},{"id":"2","code":"YYYYYY"},...]}

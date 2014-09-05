@@ -17,6 +17,6 @@ $config['auth']['mysql_pass'] = 'password';
 $config['auth']['mysql_token'] = 'token';
 $config['auth']['mysql_expire'] = 'expire';
 
-// Exclude MySQL Tables/Fields
+// Exclude MySQL Tables/Fields 					# NOT IMPLEMENTED AT THIS TIME #
 $config['excludes']['note'] = true;
 $config['excludes']['user']['password'] = true;
