@@ -26,7 +26,7 @@ class DB {
     public static function getInstance(  ) {
            
         if(!self::$objInstance){
-			self::$objInstance = new PDO('mysql:host='.MYSQL_HOST.';dbname='.MYSQL_DB, MYSQL_USER, MYSQL_PASS);
+			self::$objInstance = new PDO('mysql:host='.MYSQL_HOST.';port='.MYSQL_PORT.';dbname='.MYSQL_DB, MYSQL_USER, MYSQL_PASS);
 			self::$objInstance->setAttribute(PDO::ATTR_CASE, PDO::CASE_LOWER); // les noms de champs seront en caractères minuscules
 			self::$objInstance->setAttribute(PDO::ATTR_ERRMODE , PDO::ERRMODE_EXCEPTION); // les erreurs lanceront des exceptions
 			self::$objInstance->exec("SET NAMES 'utf8'");
