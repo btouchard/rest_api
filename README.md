@@ -45,7 +45,8 @@ Using api via an app
 --------------------
 
 1) First authenticate by posting username and password data (configured in config.php file) to url http://server.com/signin
-   If success, return needed token for all query in result {'success':true, 'result': { 'token': 'azerty'}}
+   If success, return needed token for all query in result 
+   ```{'success':true, 'result': { 'token': 'azerty'}}```
 
 2) Next, use this token for query api, by adding it to query header
 ```
