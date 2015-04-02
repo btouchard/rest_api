@@ -3,11 +3,11 @@
 $config['debug'] = true;						// Disable this in production
 
 // MySQL
-$config['mysql']['host'] = 'localhost';			// Hôte MySQL
+$config['mysql']['host'] = 'mysqlhost';			// Hôte MySQL
 $config['mysql']['port'] = 3306;				// Port
-$config['mysql']['user'] = 'root';				// Utilisateur MySQL
-$config['mysql']['pass'] = 'lapsikopass';		// Mot de passe
-$config['mysql']['base'] = 'cesi_alternance';  	// Base de donnée
+$config['mysql']['user'] = 'mysqlusername';				// Utilisateur MySQL
+$config['mysql']['pass'] = 'mysqlpassword';		// Mot de passe
+$config['mysql']['base'] = 'mysqldatabase';  	// Base de donnée
 
 // Autenticate
 $config['auth']['token_name'] = 'X-APP-TOKEN';
