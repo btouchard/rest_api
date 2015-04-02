@@ -6,8 +6,11 @@ $config['debug'] = true;						// Disable this in production
 $config['mysql']['host'] = 'localhost';			// Hôte MySQL
 $config['mysql']['port'] = 3306;				// Port
 $config['mysql']['user'] = 'root';				// Utilisateur MySQL
-$config['mysql']['pass'] = 'lapsikopass';		// Mot de passe
+$config['mysql']['pass'] = 'l4ps1k0p4ss';		// Mot de passe
 $config['mysql']['base'] = 'cesi_alternance';  	// Base de donnée
+
+// MongoDB
+$config['mongodb']['base'] = 'cesi_alternance';
 
 // Autenticate
 $config['auth']['token_name'] = 'X-APP-TOKEN';

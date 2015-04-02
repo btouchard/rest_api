@@ -1,8 +1,7 @@
 <?php
-namespace App;
+namespace Mongo;
 
 use Library\Application;
-use Library\Utils\Json;
 
 class Api extends Application {
 
@@ -17,9 +16,6 @@ class Api extends Application {
             $class = $router->getController();
             $ctrl = new $class($this);
             $result = $ctrl->run();
-	    	$content = Json::encode($result);
-	        $this->response->setContent($content);
-	        $this->response->send();
         } catch (\Exception $e) {
             $this->setError($e->getCode(), $e->getMessage());
         }

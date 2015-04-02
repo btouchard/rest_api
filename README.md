@@ -44,10 +44,12 @@ CREATE TABLE IF NOT EXISTS `user` (
 Using api via an app
 --------------------
 
-1) First authenticate by posting username and password data (configured in config.php file) to url http://server.com/authenticate
+1) First authenticate by posting username and password data (configured in config.php file) to url http://server.com/signin
    If success, return needed token for all query in result {'success':true, 'result': { 'token': 'azerty'}}
 
 2) Next, use this token for query api, by adding it to query header
    Ex: GET http://www.domain.com/matable
        X-APP-TOKEN: azerty
    Result: {"success":true,"result":[{"id":"1","code":"XXXXXX"},{"id":"2","code":"YYYYYY"},...]}
+
+3) After use, you can disconnect by using : http://server.com/signout

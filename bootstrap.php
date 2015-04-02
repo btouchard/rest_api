@@ -18,6 +18,8 @@ define('MYSQL_DB', $config['mysql']['base']);  // Base de donnée
 define('MYSQL_USER', $config['mysql']['user']);           // Utilisateur MySQL
 define('MYSQL_PASS', $config['mysql']['pass']);    // Mot de passe
 
+define('MONGO_DB', $config['mongodb']['base']);
+
 define('AUTH_HEADER', $config['auth']['token_name']);   // Header Token Name
 
 function autoload($class) {             // Permet l'inclusion automatique des classes (voir namespace PHP) (PHP 5 >= 5.1.2)

@@ -3,8 +3,7 @@ namespace App;
 
 use Library\Application;
 use Library\Component;
-use Library\Utils\DB;
-use Library\Utils\Json;
+use Library\Utils\MySQL;
 use PDO;
 
 class TableException extends \Exception {}
@@ -17,15 +16,12 @@ class Table extends Component {
     public function run() {
     	$this->prepare();
     	switch ($this->app->request()->method()) {
-    		case 'get': 	$result = $this->load(); 	break;
-    		case 'post': 	$result = $this->insert(); 	break;
-    		case 'put': 	$result = $this->update(); 	break;
-    		case 'delete': 	$result = $this->delete(); 	break;
-    		default: $result = array('success' => false);
+    		case 'get': 	return $this->load();
+    		case 'post': 	return $this->insert();
+    		case 'put': 	return $this->update();
+    		case 'delete': 	return $this->delete();
+    		default: return array('success' => false);
     	}
-    	$content = Json::encode($result);
-        $this->app->response()->setContent($content);
-        $this->app->response()->send();
     }
 
     private function prepare() {
@@ -47,7 +43,7 @@ class Table extends Component {
     	}
 
     	$qry = 'SHOW FIELDS FROM ' . $this->table;
-    	$rs = DB::query($qry);
+    	$rs = MySQL::query($qry);
     	while($rw = $rs->fetch(PDO::FETCH_ASSOC)) 
     		$this->fields[$rw['field']] = preg_replace('@(\w+)\(\d+\)@', '$1', $rw['type']);
     }
@@ -70,7 +66,7 @@ class Table extends Component {
     	}
     	if (!empty($_GET['limit'])) $qry .= ' LIMIT ' . $_GET['limit'];
     	//if (DEBUG) $result['query'] = $qry;
-    	$rs = DB::query($qry);
+    	$rs = MySQL::query($qry);
     	if ($rs->rowCount() > 0) 
 			while($rw = $rs->fetch(PDO::FETCH_ASSOC)) $result[] = $rw;
 		return array('success' => true, 'result' => $result);
@@ -79,22 +75,22 @@ class Table extends Component {
     private function insert() {
     	$values = $this->values();
     	$qry = 'INSERT INTO ' . $this->table . ' SET ' . implode(', ', $values);
-    	$result = array('success' => (bool) DB::exec($qry));
-    	if ($result['success']) $result['id'] = (int) DB::lastInsertId();
+    	$result = array('success' => (bool) MySQL::exec($qry));
+    	if ($result['success']) $result['id'] = (int) MySQL::lastInsertId();
     	return $result;
     }
 
     private function update() {
     	$values = $this->values();
     	$qry = 'UPDATE ' . $this->table . ' SET ' . implode(', ', $values) . ' WHERE id=' . $this->id;
-    	$result = array('success' => (bool) DB::exec($qry));
+    	$result = array('success' => (bool) MySQL::exec($qry));
     	if ($result['success']) $result['id'] = $this->id;
     	return $result;
     }
 
     private function delete() {
     	$qry = 'DELETE FROM ' . $this->table . ' WHERE id=' . $this->id;
-    	$result = array('success' => (bool) DB::exec($qry));
+    	$result = array('success' => (bool) MySQL::exec($qry));
     	if ($result['success']) $result['id'] = $this->id;
     	return $result;
     }

@@ -1,8 +1,9 @@
 <?php
-namespace App;
+namespace Mongo;
 
 use Library\Application;
 use Library\Component;
+use Library\Utils\Json;
 
 class FileSystemException extends \Exception {}
 
@@ -17,12 +18,14 @@ class FileSystem extends Component {
     public function run() {
     	$this->path = $this->app->request()->request();
     	switch ($this->app->request()->method()) {
-    		case 'get': 	return $this->load();
-		    case 'post':	return $this->add();
-		    case 'put':		return $this->save();
-		    case 'delete':	return $this->delete();
-            default: return array('success' => false);
+    		case 'get': 	$result = $this->load(); 	break;
+		    case 'post':	$result = $this->add(); 	break;
+		    case 'put':		$result = $this->save();	break;
+		    case 'delete':	$result = $this->delete(); 	break;
 		}
+    	$content = Json::encode($result);
+        $this->app->response()->setContent($content);
+        $this->app->response()->send();
     }
 
     private function load() {

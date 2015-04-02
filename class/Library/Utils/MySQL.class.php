@@ -3,7 +3,7 @@ namespace Library\Utils;
 
 use PDO;
 
-class DB {
+class MySQL {
    
     private static $objInstance;
    
@@ -57,4 +57,3 @@ class DB {
     } # end method
    
 }
-?>
